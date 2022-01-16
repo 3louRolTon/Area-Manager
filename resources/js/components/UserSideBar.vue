@@ -18,21 +18,21 @@
                         icon: 'fas fa-ellipsis-v',
                         child: [
                             {
-                                href: '',
+                                href: '/user/bind',
                                 title: 'Привязать'
                             },
                             {
-                                href: '',
+                                href: '/user/unbind',
                                 title: 'Отвязать'
                             },
-                            {
-                                href: '',
-                                title: 'Привязать участок'
-                            },
-                            {
-                                href: '',
-                                title: 'Отвязать участок'
-                            }
+                            // {
+                            //     href: '',
+                            //     title: 'Привязать участок'
+                            // },
+                            // {
+                            //     href: '',
+                            //     title: 'Отвязать участок'
+                            // }
                         ]
                     },
                     {
@@ -40,37 +40,37 @@
                         icon: 'fas fa-plus-circle',
                         child: [
                             {
-                                href: '',
+                                href: '/user/create/area',
                                 title: 'Область'
                             },
                             {
-                                href: '',
+                                href: '/user/create/district',
                                 title: 'Район'
                             },
                             {
-                                href: '',
+                                href: '/user/create/city',
                                 title: 'Город'
                             },
                             {
-                                href: '',
+                                href: '/user/create/street',
                                 title: 'Улица'
                             },
                             {
-                                href: '',
+                                href: '/user/create/house',
                                 title: 'Дом'
                             },
                             {
-                                href: '',
+                                href: '/user/create/spot',
                                 title: 'Участок'
                             },
-                            {
-                                href: '',
-                                title: 'Депутат'
-                            },
-                            {
-                                href: '',
-                                title: 'Помошник'
-                            }
+                            // {
+                            //     href: '/user/create/deputat',
+                            //     title: 'Депутат'
+                            // },
+                            // {
+                            //     href: '/user/create/helper',
+                            //     title: 'Помошник'
+                            // }
                         ]
                     },
                     {
@@ -78,63 +78,44 @@
                         icon: 'fas fa-edit',
                         child: [
                             {
-                                href: '',
+                                href: '/user/update/area',
                                 title: 'Область'
                             },
                             {
-                                href: '',
+                                href: '/user/update/district',
                                 title: 'Район'
                             },
                             {
-                                href: '',
+                                href: '/user/update/city',
                                 title: 'Город'
                             },
                             {
-                                href: '',
+                                href: '/user/update/street',
                                 title: 'Улица'
                             },
                             {
-                                href: '',
+                                href: '/user/update/house',
                                 title: 'Дом'
                             },
                             {
-                                href: '',
+                                href: '/user/update/spot',
                                 title: 'Участок'
                             },
-                            {
-                                href: '',
-                                title: 'Депутат'
-                            },
-                            {
-                                href: '',
-                                title: 'Помошник'
-                            }
+                            // {
+                            //     href: '/user/update/deputat',
+                            //     title: 'Депутат'
+                            // },
+                            // {
+                            //     href: '/user/update/helper',
+                            //     title: 'Помошник'
+                            // }
                         ]
                     },
-                    {
-                        title: 'User',
-                        icon: 'fas fa-grip-vertical',
-                        child: [
-                            {
-                                href: '',
-                                title: 'Admin'
-                            },
-                            {
-                                href: '',
-                                title: 'Validate'
-                            }
-                        ]
-                    },
-                    {
-                        href: '/profile',
-                        title: 'Профиль',
-                        icon: 'fa fa-user',
-                    },
-                    {
-                        href: '/logout',
-                        title: 'Выйти',
-                        icon: 'fas fa-sign-out-alt',
-                    }
+                    // {
+                    //     href: '/statistics',
+                    //     title: 'Статистика',
+                    //     icon: 'fa fa-user',
+                    // }
                 ],
                 collapsed: false,
                 themes: [

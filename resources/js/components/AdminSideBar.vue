@@ -32,20 +32,19 @@
                         title: 'Регистрация',
                         icon: 'fa fa-cog',
                     },
-                    {
-                        href: '/admin/update',
-                        title: 'Изменить',
-                        icon: 'fa fa-cog',
-                    },
-                    {
-                        href: '/admin/logs',
-                        title: 'Логи',
-                        icon: 'fa fa-cog',
-                    },
+                    // {
+                    //     href: '/admin/update',
+                    //     title: 'Изменить',
+                    //     icon: 'fa fa-cog',
+                    // },
+                    // {
+                    //     href: '/admin/logs',
+                    //     title: 'Логи',
+                    //     icon: 'fa fa-cog',
+                    // },
                     {
                         component: separator
                     },
-
                     {
                         header: true,
                         title: 'User меню',
@@ -56,21 +55,21 @@
                         icon: 'fas fa-ellipsis-v',
                         child: [
                             {
-                                href: '',
+                                href: '/user/bind',
                                 title: 'Привязать'
                             },
                             {
-                                href: '',
+                                href: '/user/unbind',
                                 title: 'Отвязать'
                             },
-                            {
-                                href: '',
-                                title: 'Привязать участок'
-                            },
-                            {
-                                href: '',
-                                title: 'Отвязать участок'
-                            }
+                            // {
+                            //     href: '',
+                            //     title: 'Привязать участок'
+                            // },
+                            // {
+                            //     href: '',
+                            //     title: 'Отвязать участок'
+                            // }
                         ]
                     },
                     {
@@ -101,14 +100,14 @@
                                 href: '/user/create/spot',
                                 title: 'Участок'
                             },
-                            {
-                                href: '/user/create/deputat',
-                                title: 'Депутат'
-                            },
-                            {
-                                href: '/user/create/helper',
-                                title: 'Помошник'
-                            }
+                            // {
+                            //     href: '/user/create/deputat',
+                            //     title: 'Депутат'
+                            // },
+                            // {
+                            //     href: '/user/create/helper',
+                            //     title: 'Помошник'
+                            // }
                         ]
                     },
                     {
@@ -139,21 +138,21 @@
                                 href: '/user/update/spot',
                                 title: 'Участок'
                             },
-                            {
-                                href: '/user/update/deputat',
-                                title: 'Депутат'
-                            },
-                            {
-                                href: '/user/update/helper',
-                                title: 'Помошник'
-                            }
+                            // {
+                            //     href: '/user/update/deputat',
+                            //     title: 'Депутат'
+                            // },
+                            // {
+                            //     href: '/user/update/helper',
+                            //     title: 'Помошник'
+                            // }
                         ]
                     },
-                    {
-                        href: '/statistics',
-                        title: 'Статистика',
-                        icon: 'fa fa-user',
-                    }
+                    // {
+                    //     href: '/statistics',
+                    //     title: 'Статистика',
+                    //     icon: 'fa fa-user',
+                    // }
                 ],
                 collapsed: false,
                 themes: [
