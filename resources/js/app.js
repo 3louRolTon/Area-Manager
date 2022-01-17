@@ -35,8 +35,7 @@ Vue.component('area-create-template', () => import("./components/user/create/Are
 Vue.component('district-create-template', () => import("./components/user/create/DistrictCreate.vue"))
 Vue.component('city-create-template', () => import("./components/user/create/CityCreate.vue"))
 Vue.component('street-create-template', () => import("./components/user/create/StreetCreate.vue"))
-
-//Vue.component('select-test', () => import("./components/TestSelect.vue"))
+Vue.component('house-create-template', () => import("./components/user/create/HouseCreate.vue"))
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

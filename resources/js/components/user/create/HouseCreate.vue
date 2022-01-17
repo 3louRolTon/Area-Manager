@@ -2,7 +2,7 @@
     <div>
         <form @submit.prevent="submit">
 
-            <div class="alert alert-success" v-show="success">Улица успешно создана</div>
+            <div class="alert alert-success" v-show="success">Дом успешно создан</div>
 
             <div class="form-group row">
                 <label for="area" class="col-md-4 col-form-label text-md-right">Область</label>
@@ -41,7 +41,8 @@
                 <div class="col-md-6">
                     <model-select id="city" name="city" :options="city_options"
                                   v-model="city_item"
-                                  placeholder="Выберите город" :required="city_item.value == ''">
+                                  placeholder="Выберите город" :required="city_item.value == ''"
+                                  @input="loadStreet">
                     </model-select>
                     <div class="alert alert-danger" v-if="errors && errors.city">
                         {{ errors.city[0] }}
@@ -50,23 +51,37 @@
             </div>
 
             <div class="form-group row">
-                <label for="street_name" class="col-md-4 col-form-label text-md-right">Название улицы</label>
+                <label for="district" class="col-md-4 col-form-label text-md-right">Улица</label>
 
                 <div class="col-md-6">
-                    <input id="street_name" type="text" class="form-control" name="street_name" v-model="fields.street_name" required>
-                    <div class="alert alert-danger" v-if="errors && errors.street_name">
-                        {{ errors.street_name[0] }}
+                    <model-select id="street" name="street" :options="street_options"
+                                  v-model="street_item"
+                                  placeholder="Выберите улицу" :required="street_item.value == ''">
+                    </model-select>
+                    <div class="alert alert-danger" v-if="errors && errors.street">
+                        {{ errors.street[0] }}
                     </div>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="street_type" class="col-md-4 col-form-label text-md-right">Тип улицы</label>
+                <label for="street_name" class="col-md-4 col-form-label text-md-right">Номер додма</label>
 
                 <div class="col-md-6">
-                    <input id="street_type" type="text" class="form-control" name="street_type" v-model="fields.street_type" required>
-                    <div class="alert alert-danger" v-if="errors && errors.street_type">
-                        {{ errors.street_type[0] }}
+                    <input id="house_number" type="text" class="form-control" name="house_number" v-model="fields.house_number" required>
+                    <div class="alert alert-danger" v-if="errors && errors.house_number">
+                        {{ errors.house_number[0] }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="street_type" class="col-md-4 col-form-label text-md-right">Информация</label>
+
+                <div class="col-md-6">
+                    <input id="information" type="text" class="form-control" name="information" v-model="fields.information">
+                    <div class="alert alert-danger" v-if="errors && errors.information">
+                        {{ errors.information[0] }}
                     </div>
                 </div>
             </div>
@@ -123,6 +138,17 @@
                     value: ''
                 },
 
+                street_options: [
+
+                ],
+                street_item: {
+                    value: '',
+                    text: ''
+                },
+                street_value_last: {
+                    value: ''
+                },
+
                 fields: {},
                 success: false,
                 errors: {},
@@ -141,22 +167,21 @@
                 this.success = false;
                 this.errors = {};
 
-                if(this.city_item.value == "" || this.city_item.value == 0){
-                    this.errors = { city: { 0: "Не выбран город"}};
+                if(this.street_item.value == "" || this.street_item.value == 0){
+                    this.errors = { street: { 0: "Не выбрана улица"}};
                 }
 
                 if(!isEmpty(this.errors)) return;
 
-                this.fields.city_id = this.city_item.value;
+                this.fields.street_id = this.street_item.value;
 
-                axios.post('/api/streets', this.fields).then(response => {
+                axios.post('/api/houses', this.fields).then(response => {
                     this.success = true;
                     this.fields = {};
                 }).catch(error => {
                     if (error.response.status != 200) {
                         this.errors = {
-                            street_name: error.response.data.data.street_name,
-                            street_type: error.response.data.data.street_type
+                            house_number: error.response.data.data.house_number
                         };
                     }
                 }).finally(() => {
@@ -209,6 +234,30 @@
                 }).catch(error => {
                     if (error.response.status != 200) {
                         this.city = { city: error.response.data.data.city_id}
+                    }
+                });
+            },
+            loadStreet() {
+                if(this.city_item.value === this.city_value_last.value) return;
+
+                this.city_value_last.value = this.city_item.value;
+
+                if(this.city_item.value == "" || this.city_item.value == 0){
+                    this.street_options = [];
+                    return;
+                }
+
+                var self = this
+                this.street_options = [];
+                axios.get('/api/streets/city_id/'+this.city_item.value).then(response => {
+
+                    $.each(response.data.data, function (i, data) {
+                        self.street_options.push({value: data.id, text: data.type + "" + data.name});
+                    });
+
+                }).catch(error => {
+                    if (error.response.status != 200) {
+                        this.street = { street: error.response.data.data.street_id}
                     }
                 });
             }
