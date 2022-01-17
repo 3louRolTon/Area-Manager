@@ -30,7 +30,7 @@ Auth::routes();
 Route::group(['prefix' => 'admin', 'middleware' => ['role:super-admin|admin']], function() {
     Route::get('/', [\App\Http\Controllers\AdminController::class, 'index']);
     Route::get('register', [\App\Http\Controllers\AdminController::class, 'showRegisterForm']);
-    Route::post('register', [\App\Http\Controllers\Auth\RegisterController::class, 'create']);
+//    Route::post('register', [\App\Http\Controllers\Auth\RegisterController::class, 'create']);
 //    Route::get('update', [\App\Http\Controllers\AdminController::class, 'showUpdateForm']);
 });
 
