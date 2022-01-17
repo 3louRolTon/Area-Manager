@@ -49,7 +49,6 @@ class CityController extends BaseController
 
     public function bind(Request $request)
     {
-        //return $request;
         $input = $request->all();
 
         $validator = Validator::make($input, [
