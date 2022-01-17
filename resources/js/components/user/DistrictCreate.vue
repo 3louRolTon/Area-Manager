@@ -91,7 +91,7 @@
                     this.success = true;
                     this.errors = {};
                 }).catch(error => {
-                    if (error.response.status == 422) {
+                    if (error.response.status != 200) {
                         this.errors = { area: error.response.data.data.area_id};
                         this.errors = { district: error.response.data.data.district_name};
                     }
