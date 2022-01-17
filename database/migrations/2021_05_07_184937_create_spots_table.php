@@ -21,7 +21,7 @@ class CreateSpotsTable extends Migration
             $table->string('point_x')->nullable();
             $table->string('point_y')->nullable();
             $table->string('address');
-            $table->foreignId('district_id')->constrained('districts');
+            $table->foreignId('district_id');
             $table->bigInteger('deputat_id')->nullable();
             $table->timestamps();
         });
