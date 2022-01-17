@@ -3,7 +3,7 @@
 
         <form @submit.prevent="submit">
 
-            <div class="alert alert-success" v-show="success">Район успешно создан</div>
+            <div class="alert alert-success" v-show="success">Город успешно создан</div>
 
             <div class="form-group row">
                 <label for="area" class="col-md-4 col-form-label text-md-right">Область</label>
@@ -50,7 +50,7 @@
                 <label for="city_type" class="col-md-4 col-form-label text-md-right">Район</label>
 
                 <div class="col-md-6">
-                    <input id="city_type" type="text" class="form-control" name="city_type" v-model="fields.city_type" required>
+                    <input id="city_type" type="text" class="form-control" name="city_type" v-model="fields.city_type">
                     <div class="alert alert-danger" v-if="errors && errors.city_type">
                         {{ errors.city_type[0] }}
                     </div>
@@ -61,7 +61,7 @@
                 <label for="city_category" class="col-md-4 col-form-label text-md-right">Район</label>
 
                 <div class="col-md-6">
-                    <input id="city_category" type="text" class="form-control" name="city_category" v-model="fields.city_category" required>
+                    <input id="city_category" type="text" class="form-control" name="city_category" v-model="fields.city_category">
                     <div class="alert alert-danger" v-if="errors && errors.city_category">
                         {{ errors.city_category[0] }}
                     </div>
@@ -133,16 +133,15 @@
 
                 if(!isEmpty(this.errors)) return;
 
-                this.fields.area_id = this.area_item.value;
+                this.fields.district_id = this.area_item.value;
 
-                axios.post('/api/districts', this.fields).then(response => {
-                    this.fields = {};
+                axios.post('/api/cities', this.fields).then(response => {
                     this.success = true;
-
+                    this.fields = {};
                 }).catch(error => {
-                    if (error.response.status == 422) {
-                        this.errors = { area: error.response.data.data.area_id};
-                        this.errors = { district: error.response.data.data.district_name};
+                    if (error.response.status != 200) {
+                        this.errors = { district: error.response.data.data.district_name };
+                        this.errors = { city_name: error.response.data.data.city_name };
                     }
                 }).finally(() => {
 
