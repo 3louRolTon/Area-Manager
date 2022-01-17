@@ -149,16 +149,16 @@
 
                 if(this.role_item.value !== "admin" && this.role_item.value !== "user" && this.role_item.value !== "validate"){
                     this.errors.role = "Не выбрана роль";
-                    return
                 }
                 if(this.area_item.value == 0 || this.area_item.value == "") {
                     this.errors.area = "Не выбрана область";
-                    return
                 }
                 if(this.role_item.value !== "admin"){
                     this.errors.district = "Не выбран район";
-                    return
                 }
+
+                if(!isEmpty(this.errors)) return
+
                 this.fields.role = this.role_item.value
                 this.fields.area = this.area_item.value
                 this.fields.district = this.district_item.value
