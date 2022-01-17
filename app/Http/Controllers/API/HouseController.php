@@ -130,6 +130,17 @@ class HouseController extends BaseController
      */
     public function update(Request $request, House $house)
     {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'house_number' => 'required',
+            'street_id' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
         $house->update($request->all());
 
         return $this->sendResponse(new HouseResource($house), 'House updated successfully.');

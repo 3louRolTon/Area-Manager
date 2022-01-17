@@ -36,7 +36,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="city_name" class="col-md-4 col-form-label text-md-right">Название участка</label>
+                <label for="spot_name" class="col-md-4 col-form-label text-md-right">Название участка</label>
 
                 <div class="col-md-6">
                     <input id="spot_name" type="text" class="form-control" name="spot_name" v-model="fields.spot_name" required>
@@ -47,7 +47,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="city_type" class="col-md-4 col-form-label text-md-right">Адрес</label>
+                <label for="address" class="col-md-4 col-form-label text-md-right">Адрес</label>
 
                 <div class="col-md-6">
                     <input id="address" type="text" class="form-control" name="address" v-model="fields.address" required>
@@ -58,7 +58,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="city_type" class="col-md-4 col-form-label text-md-right">Информация</label>
+                <label for="information" class="col-md-4 col-form-label text-md-right">Информация</label>
 
                 <div class="col-md-6">
                     <input id="information" type="text" class="form-control" name="information" v-model="fields.information" required>
@@ -69,7 +69,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="city_category" class="col-md-4 col-form-label text-md-right">Координата X</label>
+                <label for="point_x" class="col-md-4 col-form-label text-md-right">Координата X</label>
 
                 <div class="col-md-6">
                     <input id="point_x" type="text" class="form-control" name="point_x" v-model="fields.point_x">
@@ -80,7 +80,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="city_category" class="col-md-4 col-form-label text-md-right">Координата Y</label>
+                <label for="point_y" class="col-md-4 col-form-label text-md-right">Координата Y</label>
 
                 <div class="col-md-6">
                     <input id="point_y" type="text" class="form-control" name="point_y" v-model="fields.point_y">

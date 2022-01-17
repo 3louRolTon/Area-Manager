@@ -3,7 +3,7 @@
 
         <form @submit.prevent="submit">
 
-            <div class="alert alert-success" v-show="success">Город успешно обновлен</div>
+            <div class="alert alert-success" v-show="success">Дом успешно обновлен</div>
 
             <div class="form-group row">
                 <label for="area" class="col-md-4 col-form-label text-md-right">Область</label>
@@ -43,7 +43,7 @@
                     <model-select id="city" name="city" :options="city_options"
                                   v-model="city_item"
                                   placeholder="Выберите город" :required="city_item.value == ''"
-                                  @input="loadCurrentCity">
+                                  @input="loadStreet">
                     </model-select>
                     <div class="alert alert-danger" v-if="errors && errors.city">
                         {{ errors.city[0] }}
@@ -52,34 +52,53 @@
             </div>
 
             <div class="form-group row">
-                <label for="city_name" class="col-md-4 col-form-label text-md-right">Название города</label>
+                <label for="street" class="col-md-4 col-form-label text-md-right">Улица</label>
 
                 <div class="col-md-6">
-                    <input id="city_name" type="text" class="form-control" name="city_name" v-model="fields.city_name" required>
-                    <div class="alert alert-danger" v-if="errors && errors.city_name">
-                        {{ errors.city_name[0] }}
+                    <model-select id="street" name="street" :options="street_options"
+                                  v-model="street_item"
+                                  placeholder="Выберите улицу" :required="street_item.value == ''"
+                                  @input="loadHouse">
+                    </model-select>
+                    <div class="alert alert-danger" v-if="errors && errors.street">
+                        {{ errors.street[0] }}
                     </div>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="city_type" class="col-md-4 col-form-label text-md-right">Тип улицы</label>
+                <label for="house" class="col-md-4 col-form-label text-md-right">Дом</label>
 
                 <div class="col-md-6">
-                    <input id="city_type" type="text" class="form-control" name="city_type" v-model="fields.city_type">
-                    <div class="alert alert-danger" v-if="errors && errors.city_type">
-                        {{ errors.city_type[0] }}
+                    <model-select id="house" name="house" :options="house_options"
+                                  v-model="house_item"
+                                  placeholder="Выберите дом" :required="house_item.value == ''"
+                                  @input="loadCurrentHouse">
+                    </model-select>
+                    <div class="alert alert-danger" v-if="errors && errors.house">
+                        {{ errors.house[0] }}
                     </div>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="city_category" class="col-md-4 col-form-label text-md-right">Сельсовет</label>
+                <label for="house_number" class="col-md-4 col-form-label text-md-right">Номер дома</label>
 
                 <div class="col-md-6">
-                    <input id="city_category" type="text" class="form-control" name="city_category" v-model="fields.city_category">
-                    <div class="alert alert-danger" v-if="errors && errors.city_category">
-                        {{ errors.city_category[0] }}
+                    <input id="house_number" type="text" class="form-control" name="house_number" v-model="fields.house_number" required>
+                    <div class="alert alert-danger" v-if="errors && errors.house_number">
+                        {{ errors.house_number[0] }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="information" class="col-md-4 col-form-label text-md-right">Информация</label>
+
+                <div class="col-md-6">
+                    <input id="information" type="text" class="form-control" name="information" v-model="fields.information">
+                    <div class="alert alert-danger" v-if="errors && errors.information">
+                        {{ errors.information[0] }}
                     </div>
                 </div>
             </div>
@@ -136,6 +155,28 @@
                     value: ''
                 },
 
+                street_options: [
+
+                ],
+                street_item: {
+                    value: '0',
+                    text: '-'
+                },
+                street_value_last: {
+                    value: ''
+                },
+
+                house_options: [
+
+                ],
+                house_item: {
+                    value: '0',
+                    text: '-'
+                },
+                house_value_last: {
+                    value: ''
+                },
+
                 fields: {},
                 success: false,
                 errors: {},
@@ -154,31 +195,28 @@
                 this.success = false;
                 this.errors = {};
 
-                if(this.city_item.value == "" || this.city_item.value == 0){
-                    this.errors = { city: { 0: "Не выбран город"}}
+                if(this.house_item.value == "" || this.house_item.value == 0){
+                    this.errors = { house: { 0: "Не выбран дом"}}
                 }
 
                 if(!isEmpty(this.errors)) return
 
-                this.fields.district_id = this.district_item.value
+                this.fields.street_id = this.street_item.value
 
-                axios.put('/api/cities/'+this.city_item.value, this.fields).then(response => {
-                    this.city_options.forEach(function(item) {
-                        if(item.value == response.data.data.id)
-                            item.text = (response.data.data.type == null ? "" : response.data.data.type + " ") +
-                                response.data.data.name + (response.data.data.category == null ? "" :  " " + response.data.data.category);
+                axios.put('/api/houses/'+this.street_item.value, this.fields).then(response => {
+                    this.house_options.forEach(function(item) {
+                        if(item.value == response.data.data.id) item.text = response.data.data.number;
                     });
                     this.success = true;
                     this.fields = {};
-                    this.city_value_last.value = 0;
-                    this.city_item = {value: '', text: ''};
+                    this.house_value_last.value = 0;
+                    this.house_item = {value: '', text: ''};
                 }).catch(error => {
                     if (error.response.status != 200) {
                         this.errors = {
-                            district_id: error.response.data.data.district_id,
-                            city_name: error.response.data.data.city_name,
-                            city_type: error.response.data.data.city_type,
-                            city_category: error.response.data.data.city_category
+                            street_id: error.response.data.data.street_id,
+                            house_number: error.response.data.data.house_number,
+                            information: error.response.data.data.information
                         };
                     }
                 }).finally(() => {
@@ -234,30 +272,73 @@
                     }
                 });
             },
-            loadCurrentCity() {
+            loadStreet() {
                 if(this.city_item.value === this.city_value_last.value) return;
 
                 this.city_value_last.value = this.city_item.value;
 
                 if(this.city_item.value == "" || this.city_item.value == 0){
-                    this.fields = {
-                        city_name: "",
-                        city_type: "",
-                        city_category: ""
-                    }
+                    this.street_options = [];
+                    return;
                 }
 
-                axios.get('/api/cities/'+this.city_item.value).then(response => {
+                var self = this
+                this.street_options = [];
+                axios.get('/api/streets/city_id/'+this.city_item.value).then(response => {
+
+                    $.each(response.data.data, function (i, data) {
+                        self.street_options.push({value: data.id, text: data.type + " " + data.name});
+                    });
+
+                }).catch(error => {
+                    if (error.response.status != 200) {
+                        this.street = { street: error.response.data.data.street_id}
+                    }
+                });
+            },
+            loadHouse() {
+                if(this.street_item.value === this.street_value_last.value) return;
+
+                this.street_value_last.value = this.street_item.value;
+
+                if(this.street_item.value == "" || this.street_item.value == 0){
+                    this.house_options = [];
+                    return;
+                }
+
+                var self = this
+                this.house_options = [];
+                axios.get('/api/houses/street_id/'+this.street_item.value).then(response => {
+
+                    $.each(response.data.data, function (i, data) {
+                        self.house_options.push({value: data.id, text: data.number});
+                    });
+
+                }).catch(error => {
+                    if (error.response.status != 200) {
+                        this.house = { house: error.response.data.data.house_id}
+                    }
+                });
+            },
+            loadCurrentHouse() {
+                if(this.house_item.value === this.house_value_last.value) return;
+
+                this.house_value_last.value = this.house_item.value;
+
+                if(this.house_item.value == "" || this.house_item.value == 0){
+                    this.fields = {}
+                }
+
+                axios.get('/api/houses/'+this.house_item.value).then(response => {
 
                     this.fields = {
-                        city_name: response.data.data.name,
-                        city_type: response.data.data.type,
-                        city_category: response.data.data.category
+                        house_number: response.data.data.number,
+                        information: response.data.data.info
                     }
 
                 }).catch(error => {
                     if (error.response.status == 422) {
-                        this.errors = { area: error.response.data.data.area_id};
+                        this.errors = { house: error.response.data.data.house_id};
                     }
                 });
             }

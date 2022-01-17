@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="district" class="col-md-4 col-form-label text-md-right">Название области</label>
+                <label for="area_name" class="col-md-4 col-form-label text-md-right">Название области</label>
 
                 <div class="col-md-6">
                     <input id="area_name" type="text" class="form-control" name="area_name" v-model="fields.area_name" required>

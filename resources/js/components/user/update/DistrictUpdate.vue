@@ -37,7 +37,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="district" class="col-md-4 col-form-label text-md-right">Название района</label>
+                <label for="district_name" class="col-md-4 col-form-label text-md-right">Название района</label>
 
                 <div class="col-md-6">
                     <input id="district_name" type="text" class="form-control" name="district_name" v-model="fields.district_name" required>

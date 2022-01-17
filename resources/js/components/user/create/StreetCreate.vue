@@ -36,7 +36,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="district" class="col-md-4 col-form-label text-md-right">Город</label>
+                <label for="city" class="col-md-4 col-form-label text-md-right">Город</label>
 
                 <div class="col-md-6">
                     <model-select id="city" name="city" :options="city_options"

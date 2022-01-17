@@ -36,7 +36,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="district" class="col-md-4 col-form-label text-md-right">Город</label>
+                <label for="city" class="col-md-4 col-form-label text-md-right">Город</label>
 
                 <div class="col-md-6">
                     <model-select id="city" name="city" :options="city_options"
@@ -51,7 +51,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="district" class="col-md-4 col-form-label text-md-right">Улица</label>
+                <label for="street" class="col-md-4 col-form-label text-md-right">Улица</label>
 
                 <div class="col-md-6">
                     <model-select id="street" name="street" :options="street_options"
@@ -65,7 +65,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="street_name" class="col-md-4 col-form-label text-md-right">Номер додма</label>
+                <label for="house_number" class="col-md-4 col-form-label text-md-right">Номер дома</label>
 
                 <div class="col-md-6">
                     <input id="house_number" type="text" class="form-control" name="house_number" v-model="fields.house_number" required>
@@ -76,7 +76,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="street_type" class="col-md-4 col-form-label text-md-right">Информация</label>
+                <label for="information" class="col-md-4 col-form-label text-md-right">Информация</label>
 
                 <div class="col-md-6">
                     <input id="information" type="text" class="form-control" name="information" v-model="fields.information">
