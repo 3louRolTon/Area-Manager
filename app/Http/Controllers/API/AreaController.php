@@ -66,6 +66,16 @@ class AreaController extends BaseController
      */
     public function update(Request $request, Area $area)
     {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'area_name' => 'required|min:5'
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(), 422);
+        }
+
         $area->update($request->all());
 
         return $this->sendResponse(new AreaResource($area), 'Area updated successfully.');

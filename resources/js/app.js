@@ -38,6 +38,8 @@ Vue.component('street-create-template', () => import("./components/user/create/S
 Vue.component('house-create-template', () => import("./components/user/create/HouseCreate.vue"))
 Vue.component('spot-create-template', () => import("./components/user/create/SpotCreate.vue"))
 
+// Update models
+Vue.component('area-update-template', () => import("./components/user/update/AreaUpdate.vue"))
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
