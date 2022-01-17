@@ -38,11 +38,12 @@ Route::middleware('api')->group( function () {
     Route::post('spots/bind', [\App\Http\Controllers\API\SpotController::class, 'bind']);
     Route::post('spots/unbind', [\App\Http\Controllers\API\SpotController::class, 'unbind']);
 
-    Route::resource('deputats', \App\Http\Controllers\API\DeputatController::class);
-    Route::get('deputats/{field}/{id}', [\App\Http\Controllers\API\DeputatController::class, 'field']);
+//    Route::resource('deputats', \App\Http\Controllers\API\DeputatController::class);
+//    Route::get('deputats/{field}/{id}', [\App\Http\Controllers\API\DeputatController::class, 'field']);
 
-    Route::get('users/{user}', [\App\Http\Controllers\API\UserController::class, 'show']);
+//    Route::get('users/{user}', [\App\Http\Controllers\API\UserController::class, 'show']);
+    Route::post('user', [\App\Http\Controllers\API\UserController::class, 'create']);
 
-    Route::resource('helpers', \App\Http\Controllers\API\HelperController::class);
-    Route::get('helpers/{field}/{id}', [\App\Http\Controllers\API\HelperController::class, 'field']);
+//    Route::resource('helpers', \App\Http\Controllers\API\HelperController::class);
+//    Route::get('helpers/{field}/{id}', [\App\Http\Controllers\API\HelperController::class, 'field']);
 });
