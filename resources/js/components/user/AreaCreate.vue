@@ -51,9 +51,8 @@
                 axios.post('/api/areas', this.fields).then(response => {
                     this.fields = {};
                     this.success = true;
-                    this.errors = {};
                 }).catch(error => {
-                    if (error.response.status == 422) {
+                    if (error.response.status != 200) {
                         this.errors = { area: error.response.data.data.area_name};
                     }
                 }).finally(() => {
