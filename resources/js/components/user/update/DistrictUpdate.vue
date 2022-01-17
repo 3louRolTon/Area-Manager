@@ -112,8 +112,7 @@
 
                 if(!isEmpty(this.errors)) return
 
-                this.fields.district_item = this.district_item.value
-
+                this.fields.area_id = this.area_item.value
                 axios.put('/api/districts/'+this.district_item.value, this.fields).then(response => {
                     this.district_options.forEach(function(item) {
                         if(item.value == response.data.data.id) item.text = response.data.data.name;
@@ -125,7 +124,7 @@
                 }).catch(error => {
                     if (error.response.status != 200) {
                         this.errors = {
-                            district_id: error.response.data.data.district_id,
+                            area_id: error.response.data.data.area_id,
                             district_name: error.response.data.data.district_name
                         };
                     }

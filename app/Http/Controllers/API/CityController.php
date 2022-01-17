@@ -130,6 +130,17 @@ class CityController extends BaseController
      */
     public function update(Request $request, City $city)
     {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'city_name' => 'required',
+            'district_id' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(), 400);
+        }
+
         $city->update($request->all());
 
         return $this->sendResponse(new CityResource($city), 'City updated successfully.');

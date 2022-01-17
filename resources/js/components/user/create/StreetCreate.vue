@@ -203,7 +203,7 @@
                     $.each(response.data.data, function (i, data) {
                         self.city_options.push({value: data.id, text:
                                 (data.type == null ? "" : data.type + " ") +
-                                data.name + (data.category == null ? "" : data.category + " ")});
+                                data.name + (data.category == null ? "" :  " " + data.category)});
                     });
 
                 }).catch(error => {
