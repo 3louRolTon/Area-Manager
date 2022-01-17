@@ -52,16 +52,16 @@
             </div>
 
             <div class="form-group row">
-                <label for="house" class="col-md-4 col-form-label text-md-right">Дома</label>
+                <label for="city" class="col-md-4 col-form-label text-md-right">Города</label>
 
                 <div class="col-md-6">
-                    <multi-select id="house" name="house" :options="house_options"
-                                  :selected-options="house_selected_options"
+                    <multi-select id="city" name="city" :options="city_options"
+                                  :selected-options="city_selected_options"
                                   @select="onSelect"
-                                  placeholder="Выберите дома" >
+                                  placeholder="Выберите города" >
                     </multi-select>
-                    <div class="alert alert-danger" v-if="errors && errors.house">
-                        {{ errors.house[0] }}
+                    <div class="alert alert-danger" v-if="errors && errors.city">
+                        {{ errors.city[0] }}
                     </div>
                 </div>
             </div>
@@ -118,10 +118,10 @@ export default {
                 value: ''
             },
 
-            house_options: [
+            city_options: [
 
             ],
-            house_selected_options: [
+            city_selected_options: [
 
             ],
 
@@ -143,32 +143,29 @@ export default {
             this.success = false;
             this.errors = {};
 
-            if(this.house_selected_options.length == 0){
-                this.errors = { house: { 0: "Не выбраны дома"}};
+            if(this.city_selected_options.length == 0){
+                this.errors = { city: { 0: "Не выбраны города"}};
             }
 
             if(!isEmpty(this.errors)) return;
 
-            let houses = [];
-            this.house_selected_options.forEach(function(item) {
-                houses.push(item.value);
+            let cities = [];
+            this.city_selected_options.forEach(function(item) {
+                cities.push(item.value);
             });
-            this.fields.houses_id = houses;
+            this.fields.cities_id = cities;
 
-            axios.post('/api/houses/unbind', this.fields).then(response => {
-                this.spot_options.forEach(function(item) {
-                    if(item.value == response.data.data.id) item.text =  response.data.data.name;
-                });
+            axios.post('/api/cities/unbind', this.fields).then(response => {
                 this.success = true;
                 this.fields = {};
                 this.spot_value_last.value = 0;
                 this.spot_item = {value: '', text: ''};
-                this.house_selected_options = [];
-                this.house_options = [];
+                this.city_selected_options = [];
+                this.city_options = [];
             }).catch(error => {
                 if (error.response.status != 200) {
                     this.errors = {
-                        house: error.response.data.data.houses_id,
+                        city: error.response.data.data.cities_id,
                     };
                 }
             }).finally(() => {
@@ -229,13 +226,14 @@ export default {
             if(this.spot_item.value == "" || this.spot_item.value == 0){
                 this.fields = {}
             }
-            this.house_selected_options = [];
-            this.house_options = [];
+            this.city_selected_options = [];
+            this.city_options = [];
             var self = this;
-            axios.get('/api/houses/spot_id/'+this.spot_item.value).then(response => {
+            axios.get('/api/cities/spot_id/'+this.spot_item.value).then(response => {
 
                 $.each(response.data.data, function (i, data) {
-                    self.house_options.push({value: data.id, text: data.number});
+                    self.city_options.push({value: data.id, text: (data.type == null ? "" : data.type + " ") +
+                            data.name + (data.category == null ? "" :  " " + data.category)});
                 });
 
             }).catch(error => {
@@ -245,7 +243,7 @@ export default {
             });
         },
         onSelect (items) {
-            this.house_selected_options = items;
+            this.city_selected_options = items;
         }
     },
     components: {

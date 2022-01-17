@@ -38,9 +38,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:super-admin|admin']], 
 
 Route::group(['prefix' => 'user', 'middleware' => ['role:super-admin|admin|user']], function() {
     Route::get('/', [\App\Http\Controllers\UserController::class, 'showBindForm']);
-    Route::get('unbind', [\App\Http\Controllers\UserController::class, 'showUnbindForm']);
+    Route::get('unbindHouse', [\App\Http\Controllers\UserController::class, 'showUnbindHouseForm']);
+    Route::get('unbindCity', [\App\Http\Controllers\UserController::class, 'showUnbindCityForm']);
     Route::get('bindSpot', [\App\Http\Controllers\UserController::class, 'showSpotBindForm']);
-    Route::get('unbindSpot', [\App\Http\Controllers\UserController::class, 'showSpotUnbindForm']);
+//    Route::get('unbindSpot', [\App\Http\Controllers\UserController::class, 'showSpotUnbindForm']);
 
     Route::group(['prefix' => 'create'], function(){
         Route::get('area', [\App\Http\Controllers\UserController::class, 'showAreaCreateForm']);

@@ -22,8 +22,12 @@
                                 title: 'Привязать'
                             },
                             {
-                                href: '/user/unbind',
-                                title: 'Отвязать'
+                                href: '/user/unbindHouse',
+                                title: 'Отвязать дом'
+                            },
+                            {
+                                href: '/user/unbindCity',
+                                title: 'Отвязать город'
                             },
                             // {
                             //     href: '',
