@@ -18,7 +18,7 @@
                         icon: 'fas fa-ellipsis-v',
                         child: [
                             {
-                                href: '/user/bind',
+                                href: '/user',
                                 title: 'Привязать'
                             },
                             {
