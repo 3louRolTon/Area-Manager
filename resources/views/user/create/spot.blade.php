@@ -8,7 +8,7 @@
                     <div class="card-header">Добавить участок</div>
 
                     <div class="card-body">
-                        <spot-create-template :data='@json($areas)'/>
+                        <spot-create-template district='{{ auth()->user()->district_id }}' :data='@json($areas)'/>
                     </div>
                 </div>
             </div>

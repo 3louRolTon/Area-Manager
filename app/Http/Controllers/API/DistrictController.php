@@ -22,11 +22,18 @@ class DistrictController extends BaseController
         return $this->sendResponse(DistrictResource::collection($district), 'Districts retrieved successfully.');
     }
 
-    public function field($field, $id)
+    public function field(Request $request, $field, $id)
     {
-        if($field == 'area_id') {
-            $district = District::where($field, $id)->get();
-        } else abort(404);
+        $input = $request->all();
+        if(isset($input['district'])){
+            if($field == 'area_id') {
+                $district = District::where("id", $input['district'])->get();
+            } else abort(404);
+        } else {
+            if($field == 'area_id') {
+                $district = District::where($field, $id)->get();
+            } else abort(404);
+        }
 
         if (is_null($district)) {
             return $this->sendError('Districts not found.');

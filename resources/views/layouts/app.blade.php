@@ -52,7 +52,11 @@
                     </ul>
                 </div>
             </div>
-            <admin-side-bar/>
+            @role('super-admin')
+                <admin-side-bar/>
+            @else
+                <user-side-bar/>
+            @endrole
         </nav>
         <main class="py-4">
             @yield('content')

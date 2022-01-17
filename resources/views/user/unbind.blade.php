@@ -8,7 +8,7 @@
                     <div class="card-header">Отвязать</div>
 
                     <div class="card-body">
-                        <unbind-template :data='@json($areas)'/>
+                        <unbind-template district='{{ auth()->user()->district_id }}' :data='@json($areas)'/>
                     </div>
                 </div>
             </div>

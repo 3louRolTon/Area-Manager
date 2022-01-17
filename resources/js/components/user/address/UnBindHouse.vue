@@ -82,7 +82,7 @@ import { ModelSelect } from 'vue-search-select'
 import { MultiSelect } from 'vue-search-select'
 
 export default {
-    props: ['data'],
+    props: ['data', 'district'],
     data() {
         return {
             area_options: [
@@ -183,7 +183,7 @@ export default {
 
             var self = this
             this.district_options = [];
-            axios.get('/api/districts/area_id/'+this.area_item.value).then(response => {
+            axios.get('/api/districts/area_id/'+this.area_item.value+"?district="+this.district).then(response => {
 
                 $.each(response.data.data, function (i, data) {
                     self.district_options.push({value: data.id, text: data.name});

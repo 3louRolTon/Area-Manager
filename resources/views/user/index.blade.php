@@ -8,7 +8,7 @@
                     <div class="card-header">Привязать</div>
 
                     <div class="card-body">
-                        <bind-template  :data='@json($areas)'/>
+                        <bind-template district='{{ auth()->user()->district_id }}' :data='@json($areas)'/>
                     </div>
                 </div>
             </div>

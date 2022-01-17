@@ -8,7 +8,7 @@
                     <div class="card-header">Изменить дом</div>
 
                     <div class="card-body">
-                        <house-update-template  :data='@json($areas)'/>
+                        <house-update-template district='{{ auth()->user()->district_id }}' :data='@json($areas)'/>
                     </div>
                 </div>
             </div>

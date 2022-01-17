@@ -153,7 +153,7 @@
                 if(this.area_item.value == 0 || this.area_item.value == "") {
                     this.errors.area = "Не выбрана область";
                 }
-                if(this.role_item.value !== "admin"){
+                if(this.role_item.value !== "admin" && (this.district_item.value == 0 || this.district_item.value == "")){
                     this.errors.district = "Не выбран район";
                 }
 
@@ -198,5 +198,11 @@
         components: {
             ModelSelect
         }
+    }
+    function isEmpty(obj) {
+        for(let key in obj) {
+            return false
+        }
+        return true
     }
 </script>

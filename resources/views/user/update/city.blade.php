@@ -8,7 +8,7 @@
                     <div class="card-header">Изменить город</div>
 
                     <div class="card-body">
-                        <city-update-template  :data='@json($areas)'/>
+                        <city-update-template district='{{ auth()->user()->district_id }}' :data='@json($areas)'/>
                     </div>
                 </div>
             </div>

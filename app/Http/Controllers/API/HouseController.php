@@ -154,6 +154,7 @@ class HouseController extends BaseController
      */
     public function destroy(House $house)
     {
+        return $this->sendResponse([json_encode($house)], 'House deleted successfully.');
         $house->delete();
 
         return $this->sendResponse([], 'House deleted successfully.');

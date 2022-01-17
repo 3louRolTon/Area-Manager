@@ -8,7 +8,7 @@
                     <div class="card-header">Изменить участок</div>
 
                     <div class="card-body">
-                        <spot-update-template  :data='@json($areas)'/>
+                        <spot-update-template district='{{ auth()->user()->district_id }}' :data='@json($areas)'/>
                     </div>
                 </div>
             </div>

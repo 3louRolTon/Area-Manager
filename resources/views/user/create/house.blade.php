@@ -8,7 +8,7 @@
                     <div class="card-header">Добавить дом</div>
 
                     <div class="card-body">
-                        <house-create-template :data='@json($areas)'/>
+                        <house-create-template district='{{ auth()->user()->district_id }}' :data='@json($areas)'/>
                     </div>
                 </div>
             </div>

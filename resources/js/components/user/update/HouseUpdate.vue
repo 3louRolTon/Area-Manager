@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="">
 
             <div class="alert alert-success" v-show="success">Дом успешно обновлен</div>
 
@@ -105,8 +105,11 @@
 
             <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" v-on:click="submit">
                         Отправить
+                    </button>
+                    <button type="submit" class="btn btn-danger offset-md-4" v-on:click="deleteHouse">
+                        Удалить
                     </button>
                 </div>
             </div>
@@ -119,7 +122,7 @@
 
 
     export default {
-        props: ['data'],
+        props: ['data', 'district'],
         data() {
             return {
                 area_options: [
@@ -191,6 +194,35 @@
             });
         },
         methods: {
+            deleteHouse() {
+                this.success = false;
+                this.errors = {};
+
+                if(this.house_item.value == "" || this.house_item.value == 0){
+                    this.errors = { house: { 0: "Не выбран дом"}}
+                }
+
+                if(!isEmpty(this.errors)) return
+
+                this.fields.id = this.house_options.value;
+                axios.delete('/api/houses/'+this.house_options.value).then(response => {
+                    this.house_options.forEach(function(item, i) {
+                        if(item.value == response.data.data.id) this.house_options.splice(i, 1);
+                    });
+                    this.success = true;
+                    this.fields = {};
+                    this.house_value_last.value = 0;
+                    this.house_item = {value: '', text: ''};
+                }).catch(error => {
+                    if (error.response.status != 200) {
+                        this.errors = {
+                            street_id: error.response.data.data.street_id
+                        };
+                    }
+                }).finally(() => {
+
+                });
+            },
             submit() {
                 this.success = false;
                 this.errors = {};
@@ -234,7 +266,7 @@
 
                 var self = this
                 this.district_options = [];
-                axios.get('/api/districts/area_id/'+this.area_item.value).then(response => {
+                axios.get('/api/districts/area_id/'+this.area_item.value+"?district="+this.district).then(response => {
 
                     $.each(response.data.data, function (i, data) {
                         self.district_options.push({value: data.id, text: data.name});

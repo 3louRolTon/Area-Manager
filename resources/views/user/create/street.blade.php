@@ -8,7 +8,7 @@
                     <div class="card-header">Добавить улицу</div>
 
                     <div class="card-body">
-                        <street-create-template :data='@json($areas)'/>
+                        <street-create-template district='{{ auth()->user()->district_id }}' :data='@json($areas)'/>
                     </div>
                 </div>
             </div>
