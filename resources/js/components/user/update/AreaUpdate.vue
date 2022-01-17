@@ -88,7 +88,7 @@
                 this.fields.area_id = this.area_item.value
 
                 axios.put('/api/areas/'+this.area_item.value, this.fields).then(response => {
-                    this.area_options.forEach(function(item, key) {
+                    this.area_options.forEach(function(item) {
                         if(item.value == response.data.data.id) item.text = response.data.data.name;
                     });
                     this.success = true;
@@ -112,10 +112,11 @@
                 this.area_value_last.value = this.area_item.value;
 
                 if(this.area_item.value == "" || this.area_item.value == 0){
-                    this.district_options = [];
+                    this.fields = {
+                        district_name: ""
+                    }
                 }
 
-                this.district_options = [];
                 axios.get('/api/areas/'+this.area_item.value).then(response => {
 
                     this.fields = {
