@@ -36,6 +36,7 @@ Vue.component('district-create-template', () => import("./components/user/create
 Vue.component('city-create-template', () => import("./components/user/create/CityCreate.vue"))
 Vue.component('street-create-template', () => import("./components/user/create/StreetCreate.vue"))
 Vue.component('house-create-template', () => import("./components/user/create/HouseCreate.vue"))
+Vue.component('spot-create-template', () => import("./components/user/create/SpotCreate.vue"))
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
