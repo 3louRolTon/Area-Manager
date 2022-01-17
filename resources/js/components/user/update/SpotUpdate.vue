@@ -3,7 +3,7 @@
 
         <form @submit.prevent="submit">
 
-            <div class="alert alert-success" v-show="success">Участок успешно создан</div>
+            <div class="alert alert-success" v-show="success">Участок успешно обновлен</div>
 
             <div class="form-group row">
                 <label for="area" class="col-md-4 col-form-label text-md-right">Область</label>
@@ -27,10 +27,26 @@
                 <div class="col-md-6">
                     <model-select id="district" name="district" :options="district_options"
                                   v-model="district_item"
-                                  placeholder="Выберите район" :required="district_item.value == ''">
+                                  placeholder="Выберите район" :required="district_item.value == ''"
+                                  @input="loadSpot">
                     </model-select>
                     <div class="alert alert-danger" v-if="errors && errors.district">
                         {{ errors.district[0] }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="spot" class="col-md-4 col-form-label text-md-right">Участок</label>
+
+                <div class="col-md-6">
+                    <model-select id="spot" name="spot" :options="spot_options"
+                                  v-model="spot_item"
+                                  placeholder="Выберите участок" :required="spot_item.value == ''"
+                                  @input="loadCurrentSpot">
+                    </model-select>
+                    <div class="alert alert-danger" v-if="errors && errors.spot">
+                        {{ errors.spot[0] }}
                     </div>
                 </div>
             </div>
@@ -142,6 +158,17 @@
                     value: ''
                 },
 
+                spot_options: [
+
+                ],
+                spot_item: {
+                    value: '',
+                    text: ''
+                },
+                spot_value_last: {
+                    value: ''
+                },
+
                 fields: {},
                 success: false,
                 errors: {},
@@ -168,9 +195,14 @@
 
                 this.fields.district_id = this.area_item.value;
 
-                axios.post('/api/spots', this.fields).then(response => {
+                axios.put('/api/spots/'+this.spot_item.value, this.fields).then(response => {
+                    this.spot_options.forEach(function(item) {
+                        if(item.value == response.data.data.id) item.text =  response.data.data.name;
+                    });
                     this.success = true;
                     this.fields = {};
+                    this.spot_value_last.value = 0;
+                    this.spot_item = {value: '', text: ''};
                 }).catch(error => {
                     if (error.response.status != 200) {
                         this.errors = {
@@ -201,6 +233,55 @@
                     $.each(response.data.data, function (i, data) {
                         self.district_options.push({value: data.id, text: data.name});
                     });
+
+                }).catch(error => {
+                    if (error.response.status == 422) {
+                        this.errors = { area: error.response.data.data.area_id};
+                    }
+                });
+            },
+            loadSpot() {
+                if(this.district_item.value === this.district_value_last.value) return;
+
+                this.district_value_last.value = this.district_item.value;
+
+                if(this.district_item.value == "" || this.district_item.value == 0){
+                    this.spot_options = [];
+                }
+
+                var self = this
+                this.spot_options = [];
+                axios.get('/api/spots/district_id/'+this.district_item.value).then(response => {
+
+                    $.each(response.data.data, function (i, data) {
+                        self.spot_options.push({value: data.id, text: data.name});
+                    });
+
+                }).catch(error => {
+                    if (error.response.status != 200) {
+                        this.errors = { district: error.response.data.data.district_id};
+                    }
+                });
+            },
+            loadCurrentSpot() {
+                if(this.spot_item.value === this.spot_value_last.value) return;
+
+                this.spot_value_last.value = this.spot_item.value;
+
+                if(this.spot_item.value == "" || this.spot_item.value == 0){
+                    this.fields = {}
+                }
+
+                axios.get('/api/spots/'+this.spot_item.value).then(response => {
+
+                    this.fields = {
+                        spot_name: response.data.data.name,
+                        information: response.data.data.info,
+                        address: response.data.data.address,
+                        point_x: response.data.data.point_x,
+                        point_y: response.data.data.point_y,
+                        phone_number: response.data.data.phone_number
+                    }
 
                 }).catch(error => {
                     if (error.response.status == 422) {

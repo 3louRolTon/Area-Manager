@@ -132,6 +132,19 @@ class SpotController extends BaseController
      */
     public function update(Request $request, Spot $spot)
     {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'spot_name' => 'required',
+            'information' => 'required',
+            'address' => 'required',
+            'district_id' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
         $spot->update($request->all());
 
         return $this->sendResponse(new SpotResource($spot), 'Spot updated successfully.');
