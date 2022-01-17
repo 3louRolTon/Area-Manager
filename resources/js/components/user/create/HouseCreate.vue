@@ -252,7 +252,7 @@
                 axios.get('/api/streets/city_id/'+this.city_item.value).then(response => {
 
                     $.each(response.data.data, function (i, data) {
-                        self.street_options.push({value: data.id, text: data.type + "" + data.name});
+                        self.street_options.push({value: data.id, text: data.type + " " + data.name});
                     });
 
                 }).catch(error => {

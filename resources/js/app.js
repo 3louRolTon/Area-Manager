@@ -42,6 +42,7 @@ Vue.component('spot-create-template', () => import("./components/user/create/Spo
 Vue.component('area-update-template', () => import("./components/user/update/AreaUpdate.vue"))
 Vue.component('district-update-template', () => import("./components/user/update/DistrictUpdate.vue"))
 Vue.component('city-update-template', () => import("./components/user/update/CityUpdate.vue"))
+Vue.component('street-update-template', () => import("./components/user/update/StreetUpdate.vue"))
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

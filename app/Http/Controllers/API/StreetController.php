@@ -81,6 +81,18 @@ class StreetController extends BaseController
      */
     public function update(Request $request, Street $street)
     {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'street_name' => 'required',
+            'street_type' => 'required',
+            'city_id' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
         $street->update($request->all());
 
         return $this->sendResponse(new StreetResource($street), 'Street updated successfully.');

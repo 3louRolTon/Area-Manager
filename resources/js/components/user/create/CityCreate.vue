@@ -47,7 +47,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="city_type" class="col-md-4 col-form-label text-md-right">Район</label>
+                <label for="city_type" class="col-md-4 col-form-label text-md-right">Тип улицы</label>
 
                 <div class="col-md-6">
                     <input id="city_type" type="text" class="form-control" name="city_type" v-model="fields.city_type">
@@ -58,7 +58,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="city_category" class="col-md-4 col-form-label text-md-right">Район</label>
+                <label for="city_category" class="col-md-4 col-form-label text-md-right">Сельсовет</label>
 
                 <div class="col-md-6">
                     <input id="city_category" type="text" class="form-control" name="city_category" v-model="fields.city_category">
