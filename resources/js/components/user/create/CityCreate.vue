@@ -140,8 +140,10 @@
                     this.fields = {};
                 }).catch(error => {
                     if (error.response.status != 200) {
-                        this.errors = { district: error.response.data.data.district_name };
-                        this.errors = { city_name: error.response.data.data.city_name };
+                        this.errors = {
+                            district: error.response.data.data.district_name,
+                            city_name: error.response.data.data.city_name
+                        };
                     }
                 }).finally(() => {
 
