@@ -80,6 +80,17 @@ class DistrictController extends BaseController
      */
     public function update(Request $request, District $district)
     {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'district_name' => 'required',
+            'area_id' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
         $district->update($request->all());
 
         return $this->sendResponse(new DistrictResource($district), 'District updated successfully.');
