@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\User as UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends BaseController
@@ -43,6 +44,37 @@ class UserController extends BaseController
         }
 
         $user = User::create($input);
+
+        return $this->sendResponse(new UserResource($user), 'User created successfully.');
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function create(Request $request)
+    {
+        $input = $request->all();
+
+        if($input['role'] === "admin") {
+            $user = User::create([
+                'name' => $input['login'],
+                'password' => Hash::make($input['password']),
+                'area_id' => $input['area'],
+            ]);
+        }
+        else
+        {
+            $user = User::create([
+                'name' => $input['login'],
+                'password' => Hash::make($input['password']),
+                'area_id' => $input['area'],
+                'district_id' => $input['district'],
+            ]);
+        }
+        $user->assignRole($input['role']);
 
         return $this->sendResponse(new UserResource($user), 'User created successfully.');
     }

@@ -6,9 +6,8 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Register Page</div>
-
                     <div class="card-body">
-                        <register :data='@json($areas)'/>
+                        <register roles='@json($roles)' areas='@json($areas)'/>
                     </div>
                 </div>
             </div>

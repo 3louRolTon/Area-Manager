@@ -24,11 +24,20 @@ class AdminController extends Controller
         $user = Auth::user();
         if($user->hasRole('super-admin'))
         {
+            $data['roles'] = [
+                'admin',
+                'user',
+                'validate'
+            ];
             $data['areas'] = Area::all();
         }
 
         if($user->hasRole('admin'))
         {
+            $data['roles'] = [
+                'admin',
+                'user'
+            ];
             $data['areas'] = Area::where('id', $user->area_id)->get();
             $data['districts'] = District::where('area_id', $user->area_id)->get();
         }

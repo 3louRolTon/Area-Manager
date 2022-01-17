@@ -8,7 +8,6 @@
                     <div class="card-header">Добавить пользователя</div>
 
                     <div class="card-body">
-                        <select-test/>
                     </div>
                 </div>
             </div>
