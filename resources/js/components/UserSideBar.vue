@@ -43,14 +43,14 @@
                         title: 'Добавить',
                         icon: 'fas fa-plus-circle',
                         child: [
-                            {
-                                href: '/user/create/area',
-                                title: 'Область'
-                            },
-                            {
-                                href: '/user/create/district',
-                                title: 'Район'
-                            },
+                            // {
+                            //     href: '/user/create/area',
+                            //     title: 'Область'
+                            // },
+                            // {
+                            //     href: '/user/create/district',
+                            //     title: 'Район'
+                            // },
                             {
                                 href: '/user/create/city',
                                 title: 'Город'
@@ -81,14 +81,14 @@
                         title: 'Изменить',
                         icon: 'fas fa-edit',
                         child: [
-                            {
-                                href: '/user/update/area',
-                                title: 'Область'
-                            },
-                            {
-                                href: '/user/update/district',
-                                title: 'Район'
-                            },
+                            // {
+                            //     href: '/user/update/area',
+                            //     title: 'Область'
+                            // },
+                            // {
+                            //     href: '/user/update/district',
+                            //     title: 'Район'
+                            // },
                             {
                                 href: '/user/update/city',
                                 title: 'Город'
@@ -121,7 +121,7 @@
                     //     icon: 'fa fa-user',
                     // }
                 ],
-                collapsed: false,
+                collapsed: true,
                 themes: [
                     {
                         name: 'Default theme',

@@ -158,7 +158,7 @@
                     //     icon: 'fa fa-user',
                     // }
                 ],
-                collapsed: false,
+                collapsed: true,
                 themes: [
                     {
                         name: 'Default theme',
