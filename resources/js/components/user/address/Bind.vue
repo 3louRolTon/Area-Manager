@@ -363,6 +363,7 @@
 
                 var self = this
                 this.house_options = [];
+                this.house_selected_options = [];
                 axios.get('/api/houses/street_id/'+this.street_item.value).then(response => {
 
                     $.each(response.data.data, function (i, data) {
@@ -377,7 +378,7 @@
             },
             onSelect (items) {
                 this.house_selected_options = items;
-            },
+            }
 
         },
         components: {
