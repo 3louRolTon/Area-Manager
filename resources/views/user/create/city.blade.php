@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Добавить район</div>
+                    <div class="card-header">Добавить город</div>
 
                     <div class="card-body">
                         <city-create-template :data='@json($areas)'/>

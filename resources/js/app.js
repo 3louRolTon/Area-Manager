@@ -30,10 +30,11 @@ Vue.component('user-side-bar', () => import("./components/UserSideBar.vue"))
 Vue.component('register', () => import("./components/Admin/Register.vue"))
 
 // User Template
-
-Vue.component('area-create-template', () => import("./components/user/AreaCreate.vue"))
-Vue.component('district-create-template', () => import("./components/user/DistrictCreate.vue"))
-Vue.component('city-create-template', () => import("./components/user/CityCreate.vue"))
+// Create models
+Vue.component('area-create-template', () => import("./components/user/create/AreaCreate.vue"))
+Vue.component('district-create-template', () => import("./components/user/create/DistrictCreate.vue"))
+Vue.component('city-create-template', () => import("./components/user/create/CityCreate.vue"))
+Vue.component('street-create-template', () => import("./components/user/create/StreetCreate.vue"))
 
 //Vue.component('select-test', () => import("./components/TestSelect.vue"))
 
