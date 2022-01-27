@@ -24,6 +24,7 @@ class Spot extends Model
         'address',
         'district_id',
         'deputat_id',
+        'city_id'
     ];
 
     static public function getByUser()

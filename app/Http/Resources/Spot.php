@@ -24,6 +24,7 @@ class Spot extends JsonResource
             'address' => $this->address,
             'district_id' => $this->district_id,
             'deputat_id' => $this->deputat_id,
+            'city_id' => $this->city_id
         ];
     }
 }

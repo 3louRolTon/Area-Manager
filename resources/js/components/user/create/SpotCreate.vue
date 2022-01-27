@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="">
 
             <div class="alert alert-success" v-show="success">Участок успешно создан</div>
 
@@ -27,10 +27,25 @@
                 <div class="col-md-6">
                     <model-select id="district" name="district" :options="district_options"
                                   v-model="district_item"
-                                  placeholder="Выберите район" :required="district_item.value == ''">
+                                  placeholder="Выберите район" :required="district_item.value == ''"
+                                  @input="loadCity">
                     </model-select>
                     <div class="alert alert-danger" v-if="errors && errors.district">
                         {{ errors.district[0] }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="city" class="col-md-4 col-form-label text-md-right">Город</label>
+
+                <div class="col-md-6">
+                    <model-select id="city" name="city" :options="city_options"
+                                  v-model="city_item"
+                                  placeholder="Выберите город" :required="city_item.value == ''">
+                    </model-select>
+                    <div class="alert alert-danger" v-if="errors && errors.city">
+                        {{ errors.city[0] }}
                     </div>
                 </div>
             </div>
@@ -103,8 +118,12 @@
 
             <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        Отправить
+                    Привязать к
+                    <button type="submit" class="btn btn-primary" style="margin-left: 20px"  v-on:click="submitDistrict">
+                        Району
+                    </button>
+                    <button type="submit" class="btn btn-primary" style="margin-left: 50px"  v-on:click="submitCity">
+                        Городу
                     </button>
                 </div>
             </div>
@@ -142,6 +161,17 @@
                     value: ''
                 },
 
+                city_options: [
+
+                ],
+                city_item: {
+                    value: '',
+                    text: ''
+                },
+                city_value_last: {
+                    value: ''
+                },
+
                 fields: {},
                 success: false,
                 errors: {},
@@ -156,7 +186,7 @@
             });
         },
         methods: {
-            submit() {
+            submitDistrict() {
                 this.success = false;
                 this.errors = {};
 
@@ -166,7 +196,41 @@
 
                 if(!isEmpty(this.errors)) return;
 
-                this.fields.district_id = this.area_item.value;
+                this.fields.district_id = this.district_item.value;
+
+                axios.post('/api/spots', this.fields).then(response => {
+                    this.success = true;
+                    this.fields = {};
+                }).catch(error => {
+                    if (error.response.status != 200) {
+                        this.errors = {
+                            district: error.response.data.data.district_name,
+                            spot_name: error.response.data.data.spot_name,
+                            information: error.response.data.data.information,
+                            phone_number: error.response.data.data.phone_number,
+                            address: error.response.data.data.address,
+                        };
+                    }
+                }).finally(() => {
+
+                });
+            },
+            submitCity() {
+                this.success = false;
+                this.errors = {};
+
+                if(this.city_item.value == "" || this.city_item.value == 0){
+                    this.errors = { city: { 0: "Не выбран город"}};
+                }
+
+                if(this.district_item.value == "" || this.district_item.value == 0){
+                    this.errors = { district: { 0: "Не выбран район"}};
+                }
+
+                if(!isEmpty(this.errors)) return;
+
+                this.fields.district_id = this.district_item.value;
+                this.fields.city_id = this.city_item.value;
 
                 axios.post('/api/spots', this.fields).then(response => {
                     this.success = true;
@@ -205,6 +269,32 @@
                 }).catch(error => {
                     if (error.response.status == 422) {
                         this.errors = { area: error.response.data.data.area_id};
+                    }
+                });
+            },
+            loadCity() {
+                if(this.district_item.value === this.district_value_last.value) return;
+
+                this.district_value_last.value = this.district_item.value;
+
+                if(this.district_item.value == "" || this.district_item.value == 0){
+                    this.city_options = [];
+                    return;
+                }
+
+                var self = this
+                this.city_options = [];
+                axios.get('/api/cities/district_id/'+this.district_item.value).then(response => {
+
+                    $.each(response.data.data, function (i, data) {
+                        self.city_options.push({value: data.id, text:
+                                (data.type == null ? "" : data.type + " ") +
+                                data.name + (data.category == null ? "" :  " " + data.category)});
+                    });
+
+                }).catch(error => {
+                    if (error.response.status != 200) {
+                        this.city = { city: error.response.data.data.city_id}
                     }
                 });
             }
