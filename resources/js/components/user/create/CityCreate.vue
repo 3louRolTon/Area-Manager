@@ -133,7 +133,7 @@
 
                 if(!isEmpty(this.errors)) return;
 
-                this.fields.district_id = this.area_item.value;
+                this.fields.district_id = this.district_item.value;
 
                 axios.post('/api/cities', this.fields).then(response => {
                     this.success = true;
