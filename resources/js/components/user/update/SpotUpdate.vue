@@ -193,7 +193,7 @@
 
                 if(!isEmpty(this.errors)) return;
 
-                this.fields.district_id = this.area_item.value;
+                this.fields.district_id = this.district_item.value;
 
                 axios.put('/api/spots/'+this.spot_item.value, this.fields).then(response => {
                     this.spot_options.forEach(function(item) {
