@@ -49,6 +49,32 @@ class SpotController extends BaseController
         return $this->sendResponse(new SpotResource($spot), 'Spot created successfully.');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getBind($spot_id)
+    {
+
+        if(!$spot_id){
+            return $this->sendError('Validation Error.', $spot_id);
+        }
+
+        $data['city'] = DB::table('cities')
+            ->where('cities.spot_id', "=", $spot_id)
+            ->select('city_name', 'city_type', 'city_category')->get();
+
+        $data['house'] = DB::table('cities')
+            ->join('streets', 'streets.city_id', '=', 'cities.id')
+            ->join('houses', 'houses.street_id', '=', 'streets.id')
+            ->where('houses.spot_id', "=", $spot_id)
+            ->select('city_name', 'city_type', 'city_category', 'street_name', 'street_type', 'house_number')->get();
+
+        return $this->sendResponse($data , 'Spot created successfully.');
+    }
+
     public function bind(Request $request)
     {
         //return $request;

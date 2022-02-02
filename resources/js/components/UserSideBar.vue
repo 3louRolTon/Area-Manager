@@ -119,7 +119,22 @@
                     //     href: '/statistics',
                     //     title: 'Статистика',
                     //     icon: 'fa fa-user',
-                    // }
+                    // },
+                    {
+                        header: true,
+                        title: 'Validate меню',
+                        hiddenOnCollapse: true
+                    },
+                    {
+                        title: 'Участки',
+                        icon: 'fas fa-ellipsis-v',
+                        child: [
+                            {
+                                href: '/validate/',
+                                title: 'Показать'
+                            }
+                        ]
+                    },
                 ],
                 collapsed: true,
                 themes: [

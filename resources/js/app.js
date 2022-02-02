@@ -49,6 +49,10 @@ Vue.component('spot-update-template', () => import("./components/user/update/Spo
 Vue.component('bind-template', () => import("./components/user/address/Bind.vue"))
 Vue.component('unbind-house-template', () => import("./components/user/address/UnBindHouse.vue"))
 Vue.component('unbind-city-template', () => import("./components/user/address/UnBindCity.vue"))
+
+// Validate Template
+Vue.component('show-bind-template', () => import("./components/validate/ShowBind.vue"))
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

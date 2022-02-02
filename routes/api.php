@@ -34,6 +34,7 @@ Route::middleware('api')->group( function () {
     Route::post('houses/unbind', [\App\Http\Controllers\API\HouseController::class, 'unbind']);
 
     Route::resource('spots', \App\Http\Controllers\API\SpotController::class);
+    Route::get('spots/getBind/{spot_id}', [\App\Http\Controllers\API\SpotController::class, 'getBind']);
     Route::get('spots/{field}/{id}', [\App\Http\Controllers\API\SpotController::class, 'field']);
     Route::post('spots/bind', [\App\Http\Controllers\API\SpotController::class, 'bind']);
     Route::post('spots/unbind', [\App\Http\Controllers\API\SpotController::class, 'unbind']);

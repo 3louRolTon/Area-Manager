@@ -66,6 +66,6 @@ Route::group(['prefix' => 'user', 'middleware' => ['role:super-admin|admin|user'
     });
 });
 
-//Route::group(['prefix' => 'validate', 'middleware' => ['role:super-admin|admin|user|validate']], function() {
-//
-//});
+Route::group(['prefix' => 'validate', 'middleware' => ['role:super-admin|admin|user|validate']], function() {
+    Route::get('/', [\App\Http\Controllers\ValidateController::class, 'show']);
+});
