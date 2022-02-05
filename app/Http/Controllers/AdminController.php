@@ -92,49 +92,49 @@ class AdminController extends Controller
                     foreach (City::where('district_id', $district->id)->get() as $city) {
                         $streets = [];
                         foreach (Street::where('city_id', $city->id)->get() as $street){
-                            $houses = House::where('street_id', $street->id)->whereNotNull('spot_id')->select('house_number', 'information', 'spot_id')->get();
+                            $houses = House::where('street_id', $street->id)->whereNotNull('spot_id')->select('house_number as houseNumber', 'spot_id as spotId')->get();
                             if(count($houses) > 0){
                                 $streets[] = [
-                                    'name' => $street->street_name,
-                                    'type' => $street->street_type,
-                                    'houses' => $houses
+                                    'streetName' => $street->street_name,
+                                    'streetType' => $street->street_type,
+                                    'houseList' => $houses
                                 ];
                             }
                         }
                         if(count($streets) > 0){
                             $cities[] = [
-                                'name' => $city->city_name,
-                                'type' => $city->city_type,
-                                'category' => $city->city_category,
-                                'spot_id' => $city->spot_id,
-                                'streets' => $streets
+                                'cityName' => $city->city_name,
+                                'categoryName' => $city->city_type,
+                                'cityCategory' => $city->city_category,
+                                'citySpotId' => $city->spot_id,
+                                'streetList' => $streets
                             ];
                         } else if($city->spot_id) {
                             $cities[] = [
-                                'name' => $city->city_name,
-                                'type' => $city->city_type,
-                                'category' => $city->city_category,
-                                'spot_id' => $city->spot_id,
-                                'streets' => null
+                                'cityName' => $city->city_name,
+                                'categoryName' => $city->city_type,
+                                'cityCategory' => $city->city_category,
+                                'citySpotId' => $city->spot_id,
+                                'streetList' => null
                             ];
                         }
                     }
                     if(count($cities) > 0){
                         $districts[] = [
-                            'name' => $district->district_name,
-                            'cities' => $cities
+                            'districtName' => $district->district_name,
+                            'cityList' => $cities
                         ];
                     }
                 }
                 if(count($districts) > 0){
                     $areas[] = [
-                        'name' => $area->area_name,
-                        'districts' => $districts
+                        'regionName' => $area->area_name,
+                        'districtList' => $districts
                     ];
                 }
             }
             $jsonFile = time() . '_file.json';
-            Storage::put('upload/json/'.$jsonFile, json_encode($areas, JSON_UNESCAPED_UNICODE));
+            Storage::put('upload/json/'.$jsonFile, json_encode(['regionList' => $areas], JSON_UNESCAPED_UNICODE));
             return Storage::download('upload/json/'.$jsonFile);
         }
     }
