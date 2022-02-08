@@ -83,16 +83,26 @@ class AdminController extends Controller
     {
         $user = Auth::user();
         $json = [];
+
+        $select_areas = [4, 3, 1, 5, 7, 2, 6];
+
         if($user->hasRole('super-admin')) {
             $areas = [];
-            foreach (Area::all() as $area){
+            foreach ($select_areas as $area_id){
+                $area = (Area::where('id', $area_id)->get())[0];
                 $districts = [];
                 foreach (District::where('area_id', $area->id)->get() as $district){
                     $cities = [];
                     foreach (City::where('district_id', $district->id)->get() as $city) {
                         $streets = [];
                         foreach (Street::where('city_id', $city->id)->get() as $street){
-                            $houses = House::where('street_id', $street->id)->whereNotNull('spot_id')->select('house_number as houseNumber', 'spot_id as spotId')->get();
+                            $houses = [];
+                            foreach (House::where('street_id', $street->id)->whereNotNull('spot_id')->get() as $house){
+                                $houses[] = [
+                                    "houseNumber" => $house->house_number,
+                                    "spotId" => strval($house->spot_id)
+                                ];
+                            }
                             if(count($houses) > 0){
                                 $streets[] = [
                                     'streetName' => $street->street_name,
@@ -106,7 +116,7 @@ class AdminController extends Controller
                                 'cityName' => $city->city_name,
                                 'categoryName' => $city->city_type,
                                 'cityCategory' => $city->city_category,
-                                'citySpotId' => $city->spot_id,
+                                'citySpotId' => ($city->spot_id != "" ? strval($city->spot_id) : null),
                                 'streetList' => $streets
                             ];
                         } else if($city->spot_id) {
@@ -114,7 +124,7 @@ class AdminController extends Controller
                                 'cityName' => $city->city_name,
                                 'categoryName' => $city->city_type,
                                 'cityCategory' => $city->city_category,
-                                'citySpotId' => $city->spot_id,
+                                'citySpotId' => ($city->spot_id != "" ? strval($city->spot_id) : null),
                                 'streetList' => null
                             ];
                         }
