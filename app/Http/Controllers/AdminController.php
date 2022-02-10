@@ -98,6 +98,8 @@ class AdminController extends Controller
                         foreach (Street::where('city_id', $city->id)->get() as $street){
                             $houses = [];
                             foreach (House::where('street_id', $street->id)->whereNotNull('spot_id')->get() as $house){
+                                if($house->house_number == "") continue;
+
                                 $houses[] = [
                                     "houseNumber" => $house->house_number,
                                     "spotId" => strval($house->spot_id)
@@ -115,7 +117,7 @@ class AdminController extends Controller
                             $cities[] = [
                                 'cityName' => $city->city_name,
                                 'categoryName' => $city->city_type,
-                                'cityCategory' => $city->city_category,
+                                'cityCategory' => $city->city_category ?? "",
                                 'citySpotId' => ($city->spot_id != "" ? strval($city->spot_id) : null),
                                 'streetList' => $streets
                             ];
@@ -123,7 +125,7 @@ class AdminController extends Controller
                             $cities[] = [
                                 'cityName' => $city->city_name,
                                 'categoryName' => $city->city_type,
-                                'cityCategory' => $city->city_category,
+                                'cityCategory' => $city->city_category ?? "",
                                 'citySpotId' => ($city->spot_id != "" ? strval($city->spot_id) : null),
                                 'streetList' => null
                             ];
