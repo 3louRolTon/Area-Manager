@@ -117,7 +117,7 @@ class AdminController extends Controller
                             $cities[] = [
                                 'cityName' => $city->city_name,
                                 'categoryName' => $city->city_type,
-                                'cityCategory' => $city->city_category ?? "",
+                                'cityCategory' =>($city->city_category != "" ? $city->city_category : null),
                                 'citySpotId' => ($city->spot_id != "" ? strval($city->spot_id) : null),
                                 'streetList' => $streets
                             ];
@@ -125,7 +125,7 @@ class AdminController extends Controller
                             $cities[] = [
                                 'cityName' => $city->city_name,
                                 'categoryName' => $city->city_type,
-                                'cityCategory' => $city->city_category ?? "",
+                                'cityCategory' =>  ($city->city_category != "" ? $city->city_category : null),
                                 'citySpotId' => ($city->spot_id != "" ? strval($city->spot_id) : null),
                                 'streetList' => null
                             ];
