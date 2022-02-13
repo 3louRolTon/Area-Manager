@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Street;
 use App\Models\House;
 use App\Models\User;
+use App\Models\Spot;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -77,6 +78,28 @@ class AdminController extends Controller
 
         //return $data;
         return view('admin.update', $data);
+    }
+
+    public function DownloadSpotsJson()
+    {
+        $user = Auth::user();
+        $json = [];
+
+        if($user->hasRole('super-admin')) {
+            foreach(Spot::all() as $spot) {
+                $json[$spot->id] = [
+                    'address' => $spot->address,
+                    'spotInfo' => $spot->information,
+                    'spotName' => $spot->spot_name,
+                    'phoneNumber' => $spot->phone_number,
+                    'X' => $spot->point_x,
+                    'Y' => $spot->point_y
+                ];
+            }
+        }
+        $jsonFile = time() . '_file_spot.json';
+        Storage::put('upload/json/'.$jsonFile, json_encode($json, JSON_UNESCAPED_UNICODE));
+        return Storage::download('upload/json/'.$jsonFile);
     }
 
     public function DownloadJson()
